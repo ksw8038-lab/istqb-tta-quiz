@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISTQB Advanced Level TTA Prep</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar glass-panel">
+            <div class="logo">
+                <i class="fa-solid fa-microchip"></i>
+                <span>TTA 마스터</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" data-route="dashboard" class="active"><i class="fa-solid fa-chart-line"></i> 대시보드</a></li>
+                <li><a href="#" data-route="study"><i class="fa-solid fa-book-open"></i> 학습 자료</a></li>
+                <li><a href="#" data-route="quiz"><i class="fa-solid fa-pen-to-square"></i> 실전 모의고사</a></li>
+                <li><a href="#" data-route="results"><i class="fa-solid fa-square-poll-vertical"></i> 나의 결과 (오답)</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="topbar">
+                <h1 id="page-title">대시보드</h1>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="User Avatar" class="avatar">
+                </div>
+            </header>
+            
+            <div id="app-root" class="page-transition">
+                <!-- Content will be dynamically loaded here by app.js -->
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
