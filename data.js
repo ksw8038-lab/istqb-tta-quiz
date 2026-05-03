@@ -9,25 +9,53 @@ const syllabusTopics = [
         content: `
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
                 <h3 style="color: var(--accent); margin-bottom: 1rem;">1.1 기술적 리스크 식별 (Risk Identification)</h3>
-                <p>TTA는 아키텍처, 데이터베이스, 보안, 성능 등 '기술적' 결함으로 인해 발생할 수 있는 리스크를 식별합니다.</p>
-                <ul>
-                    <li>복잡한 제어 흐름 및 높은 순환 복잡도를 가진 레거시 코드</li>
-                    <li>시장에서 충분히 검증되지 않은 신규 프레임워크/라이브러리 도입</li>
-                    <li>개발팀의 해당 도메인 지식 또는 기술적 숙련도 부족</li>
+                <p style="margin-bottom: 1rem;">리스크 기반 테스팅(Risk-Based Testing, RBT)에서 TTA(Technical Test Analyst)의 핵심적인 역할은 제품의 내부 코드와 시스템 아키텍처에 내재된 <strong>'기술적 리스크'</strong>를 찾아내는 것입니다.</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem; line-height: 1.6;">
+                    <li><strong>복잡한 제어 흐름:</strong> 순환 복잡도(Cyclomatic Complexity)가 높은 레거시 코드는 유지보수 중 결함이 발생할 확률이 압도적으로 높습니다.</li>
+                    <li><strong>신기술 도입:</strong> 시장에서 충분히 검증되지 않은 신규 프레임워크나 라이브러리를 사용할 때 발생하는 통합(Integration) 및 호환성 리스크.</li>
+                    <li><strong>비기능적 한계:</strong> 동시 접속자 수 증가에 따른 데이터베이스 데드락(Deadlock) 가능성, 메모리 누수, 그리고 보안 취약점(SQL 인젝션, XSS 등).</li>
+                    <li><strong>개발 역량 부족:</strong> 개발팀이 해당 도메인에 대한 지식이 부족하거나 특정 언어의 숙련도가 낮을 경우 발생하는 구조적 설계 결함.</li>
                 </ul>
                 <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--warning); padding: 1rem; margin-top: 1rem;">
-                    <strong>💡 시험 대비 꿀팁:</strong> "제품 출시 지연", "고객 이탈", "투자자 불만" 등은 모두 <strong>비즈니스 리스크</strong>이며, 이는 TTA가 아닌 Test Manager의 주된 책임입니다. 문제에서 TTA의 역할을 고를 때는 반드시 <strong>'코드, 아키텍처, 비기능(성능/보안)'</strong>과 관련된 기술적 리스크를 선택하세요.
+                    <strong>💡 [핵심 출제 포인트] 비즈니스 리스크 vs 기술적 리스크 구분하기</strong><br>
+                    시험에서는 종종 TTA의 역할이 아닌 것을 고르는 문제가 나옵니다. "제품 출시 지연", "고객 이탈", "투자자 불만", "외주 계약 파기" 등은 모두 <strong>비즈니스 및 프로젝트 리스크</strong>이며, 이는 전적으로 Test Manager의 책임입니다. TTA는 반드시 <strong>'소스 코드, 아키텍처, 시스템 성능/보안'</strong>에 관련된 보기만 선택해야 합니다!
                 </div>
             </div>
+            
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">1.2 기술적 리스크 평가 및 완화 (Risk Assessment & Mitigation)</h3>
-                <p>리스크 수준은 <strong>발생 가능성(Likelihood) × 영향도(Impact)</strong>로 계산됩니다. TTA는 이 중 소프트웨어 내부의 결함이 존재할 <strong>'발생 가능성'</strong>을 평가하는 데 전문성을 발휘합니다.</p>
-                <p>평가된 리스크에 따라 테스트 전략을 차등 적용하여 리스크를 완화(Mitigation)합니다.</p>
-                <ul style="margin-top: 0.5rem;">
-                    <li><strong>리스크 높음(High):</strong> 화이트박스 MC/DC 100% 커버리지 적용, 동적 메모리 분석 및 보안 모의 해킹(Penetration Test) 필수.</li>
-                    <li><strong>리스크 중간(Medium):</strong> 결정 커버리지(Decision Coverage) 100% 적용, 표준 부하 테스트 수행.</li>
-                    <li><strong>리스크 낮음(Low):</strong> 구문 커버리지(Statement Coverage) 적용, 기본 해피 패스(Happy path) 블랙박스 테스트.</li>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">1.2 기술적 리스크 평가 (Risk Assessment)</h3>
+                <p style="margin-bottom: 1rem;">리스크 수준(Risk Level)은 <strong>발생 가능성(Likelihood) × 영향도(Impact)</strong> 공식을 통해 산출됩니다.</p>
+                <p style="margin-bottom: 1rem;">이 중 TTA는 <strong>결함의 발생 가능성(Likelihood)</strong>을 판단하는 데 주력합니다. 반면 결함이 발생했을 때 입을 금전적 손실이나 브랜드 가치 하락과 같은 <strong>영향도(Impact)</strong>는 주로 비즈니스 분석가(BA)나 제품 책임자(PO)가 평가합니다.</p>
+                <p style="font-weight: 600; color: var(--success); margin-bottom: 0.5rem;">[발생 가능성 평가 지표]</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem; line-height: 1.6;">
+                    <li>코드 라인 수 (LOC) 및 모듈의 크기</li>
+                    <li>정적 분석 도구로 측정된 순환 복잡도 수치 (보통 10 이상이면 위험으로 간주)</li>
+                    <li>이전 릴리즈에서 해당 모듈이 가진 버그 이력 (결함 집중, Defect Clustering)</li>
+                    <li>유닛 테스트(Unit Test) 커버리지의 부재</li>
                 </ul>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">1.3 기술적 리스크 완화 (Risk Mitigation) 및 모니터링</h3>
+                <p style="margin-bottom: 1rem;">산출된 리스크 매트릭스에 따라 테스트 전략(어떤 기법을 얼마나 깊이 적용할 것인가)을 차등 적용하여 리스크를 실질적으로 완화합니다.</p>
+                <table style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(0,0,0,0.2);">
+                    <tr style="border-bottom: 1px solid var(--glass-border); background: rgba(255,255,255,0.05);">
+                        <th style="padding: 0.75rem;">리스크 수준</th>
+                        <th style="padding: 0.75rem;">권장 테스트 전략 (TTA 관점)</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--glass-border);">
+                        <td style="padding: 0.75rem; color: var(--danger); font-weight: bold;">High (높음)</td>
+                        <td style="padding: 0.75rem;">가장 엄격한 화이트박스 기법인 <strong>MC/DC 100%</strong> 달성 의무화. 동적 메모리 누수 분석, 최고 수준의 부하/스트레스 테스트 및 화이트박스 침투 테스트(Pen-test) 수행.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--glass-border);">
+                        <td style="padding: 0.75rem; color: var(--warning); font-weight: bold;">Medium (중간)</td>
+                        <td style="padding: 0.75rem;">결정 커버리지(Decision Coverage) 100% 달성 목표. 일반적인 사용량을 가정한 표준 부하 테스트 및 API 보안 스캐닝 수행.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem; color: var(--success); font-weight: bold;">Low (낮음)</td>
+                        <td style="padding: 0.75rem;">구문 커버리지(Statement Coverage) 달성, 기본 블랙박스 테스팅(해피 패스) 및 탐색적 테스팅 위주의 효율적 자원 배분.</td>
+                    </tr>
+                </table>
             </div>
         `
     },
@@ -39,30 +67,47 @@ const syllabusTopics = [
         content: `
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
                 <h3 style="color: var(--accent); margin-bottom: 1rem;">2.1 기본 커버리지: 구문, 결정, 조건</h3>
-                <ul>
-                    <li><strong>구문 커버리지 (Statement Coverage):</strong> 코드 내 모든 문장이 1번 이상 실행. 가장 기본적인 테스트.</li>
-                    <li><strong>결정 커버리지 (Decision / Branch Coverage):</strong> 모든 제어문(IF, WHILE)의 결과가 True, False를 최소 1번씩 가짐. 100% 결정 커버리지는 100% 구문 커버리지를 보장함.</li>
-                    <li><strong>조건 커버리지 (Condition Coverage):</strong> 결정문을 구성하는 개별 조건들이 각각 True, False를 평가받음. (주의: 결정 커버리지를 보장하지 못함)</li>
+                <p style="margin-bottom: 1rem;">화이트박스(구조 기반) 테스팅은 모듈의 소스 코드 내부 논리 구조를 바탕으로 테스트 케이스를 도출하는 기법입니다.</p>
+                <ul style="margin-left: 1.5rem; line-height: 1.6; margin-bottom: 1rem;">
+                    <li><strong>구문 커버리지 (Statement Coverage):</strong> 코드 내의 모든 실행 가능한 문장이 최소 1번 이상 실행되도록 보장합니다. 데드 코드(Dead code) 외의 구문을 점검하는 가장 기본적인 기법입니다.</li>
+                    <li><strong>결정 커버리지 (Decision / Branch Coverage):</strong> 모든 제어문(IF, WHILE, SWITCH)의 평가 결과가 참(True)과 거짓(False)을 최소 한 번씩 도출하도록 보장합니다. <strong>(100% 결정 커버리지는 100% 구문 커버리지를 보장함)</strong></li>
+                    <li><strong>조건 커버리지 (Condition Coverage):</strong> 결정문을 구성하는 '각각의 개별 조건'이 참과 거짓을 최소 한 번씩 가지도록 합니다.</li>
                 </ul>
-                <div style="background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--warning); padding: 1rem; margin-top: 1rem;">
-                    <strong>💡 시험 대비 꿀팁:</strong> 문제에서 "조건 커버리지는 달성했지만 결정 커버리지는 달성하지 못하는 사례"를 묻는다면, 개별 조건 A와 B는 모두 T/F를 가졌으나 <code>IF(A OR B)</code> 전체의 결과는 항상 True가 나오는 사례를 찾으세요.
+                <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--accent); padding: 1rem; margin-top: 1rem;">
+                    <strong>[주의!] 조건 커버리지의 한계</strong><br>
+                    <code>IF (A OR B)</code> 이라는 제어문이 있을 때,<br>
+                    TC1: A=True, B=False -> 개별조건 A는 T, B는 F (전체결과: True)<br>
+                    TC2: A=False, B=True -> 개별조건 A는 F, B는 T (전체결과: True)<br>
+                    이 경우 개별 조건 A와 B는 모두 T와 F를 가졌으므로 <strong>조건 커버리지는 100%</strong>입니다. 하지만 전체 IF문의 결과는 두 번 모두 True만 나왔으므로, False 분기를 타지 못해 <strong>결정 커버리지는 50%</strong>에 불과합니다. 따라서 조건 커버리지는 결정 커버리지를 대체할 수 없습니다.
                 </div>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid var(--success);">
                 <h3 style="color: var(--accent); margin-bottom: 1rem;">2.2 변경 조건/결정 커버리지 (MC/DC) ★ (필수 출제)</h3>
-                <p>각 개별 조건이 독립적으로 결정(전체 결과)에 영향을 미친다는 것을 증명해야 합니다. (DO-178C 등 안전 필수 시스템 요구사항)</p>
-                <p><strong>공식:</strong> 조건이 N개일 때, MC/DC 달성을 위한 최소 테스트 케이스 수는 <strong>N + 1</strong> 개 입니다.</p>
-                <p>예시: <code>IF (A AND B)</code> (조건 2개 -> 최소 TC 3개 필요)</p>
-                <ol style="margin-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 1rem;">
-                    <li>TC1: A=T, B=T => 결과 T</li>
-                    <li>TC2: A=F, B=T => 결과 F (TC1과 비교하여 A의 독립적 영향 증명)</li>
-                    <li>TC3: A=T, B=F => 결과 F (TC1과 비교하여 B의 독립적 영향 증명)</li>
-                </ol>
+                <p style="margin-bottom: 1rem;">DO-178C, ISO 26262 등 항공/자동차의 최고 안전 등급(ASIL-D) 소프트웨어에서 요구되는 가장 강력한 기준입니다.</p>
+                <p style="margin-bottom: 1rem;"><strong>핵심 원리:</strong> 각 개별 조건이 <strong>'독립적으로(Independently)'</strong> 전체 결정 결과에 영향을 미친다는 것을 증명해야 합니다. 즉, 다른 조건들의 값은 고정해둔 상태에서, 평가하려는 조건 하나만 T->F로 바꿀 때 전체 결정의 결과도 T->F (또는 그 반대)로 바뀌는 쌍(Pair)을 찾아야 합니다.</p>
+                <p style="margin-bottom: 0.5rem;"><strong>[MC/DC 필수 공식]</strong></p>
+                <p style="font-size: 1.1rem; font-weight: bold; background: rgba(0,0,0,0.3); padding: 0.5rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem;">조건이 N개일 때, MC/DC 달성을 위한 최소 테스트 케이스 수는 N + 1 개</p>
+                
+                <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">MC/DC 예제: <code>IF (A AND B)</code></h4>
+                <p style="margin-bottom: 0.5rem;">조건이 2개이므로 최소 TC는 3개(2+1)입니다.</p>
+                <table style="width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; font-size: 0.9rem; text-align: center; margin-bottom: 1rem;">
+                    <thead style="background: var(--bg-secondary);">
+                        <tr><th style="padding: 0.5rem;">TC 번호</th><th style="padding: 0.5rem;">A</th><th style="padding: 0.5rem;">B</th><th style="padding: 0.5rem;">결과 (A AND B)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid var(--glass-border);"><td style="padding: 0.5rem;">TC 1</td><td style="padding: 0.5rem; color: var(--success);">True</td><td style="padding: 0.5rem; color: var(--success);">True</td><td style="padding: 0.5rem; color: var(--success);">True</td></tr>
+                        <tr style="border-bottom: 1px solid var(--glass-border);"><td style="padding: 0.5rem;">TC 2</td><td style="padding: 0.5rem; color: var(--danger);">False</td><td style="padding: 0.5rem; color: var(--success);">True</td><td style="padding: 0.5rem; color: var(--danger);">False</td></tr>
+                        <tr><td style="padding: 0.5rem;">TC 3</td><td style="padding: 0.5rem; color: var(--success);">True</td><td style="padding: 0.5rem; color: var(--danger);">False</td><td style="padding: 0.5rem; color: var(--danger);">False</td></tr>
+                    </tbody>
+                </table>
+                <p><strong>설명:</strong> TC1과 TC2를 비교하면 B가 True로 고정된 상태에서 A가 T->F로 변할 때 전체 결과도 T->F로 변하므로 A의 독립성이 증명됩니다. TC1과 TC3을 비교하면 A가 고정된 상태에서 B의 독립성이 증명됩니다.</p>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">2.3 다중 조건 및 경로 테스팅</h3>
-                <p><strong>다중 조건 커버리지:</strong> 모든 가능한 논리적 조합(2^N)을 테스트합니다. 100% 달성 시 구문, 결정, 조건, MC/DC를 모두 달성합니다.</p>
-                <p><strong>경로 테스팅:</strong> 제어 흐름 그래프(CFG)의 시작부터 끝까지 가능한 모든 고유 경로를 최소 한 번 지납니다. 순환 복잡도(V)를 초과하는 수많은 무한 경로가 생길 수 있어 루프 순회를 제한합니다.</p>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">2.3 다중 조건(Multiple Condition) 및 경로 테스팅(Path Testing)</h3>
+                <p style="margin-bottom: 1rem;"><strong>다중 조건 테스팅:</strong> 모든 개별 조건의 가능한 모든 논리적 조합(진리표의 모든 행)을 테스트합니다. 조건이 N개일 때 2^N 개의 테스트 케이스가 필요하여, 조건이 많아질 경우 <strong>'조합의 폭발(Combinatorial Explosion)'</strong> 문제가 발생해 실무 적용이 매우 어렵습니다.</p>
+                <p style="margin-bottom: 1rem;"><strong>경로 테스팅:</strong> 제어 흐름 그래프(CFG) 상의 시작 노드부터 종료 노드까지 연결되는 가능한 모든 경로를 수행합니다. 루프(WHILE, FOR)가 존재할 경우 반복 횟수에 따라 경로가 무한대로 파생되므로, 루프 순회를 0번, 1번, 최대 허용 횟수 등으로 엄격히 제한하여 적용해야 합니다.</p>
             </div>
         `
     },
@@ -73,31 +118,50 @@ const syllabusTopics = [
         icon: "fa-magnifying-glass-chart",
         content: `
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">3.1 제어 흐름 분석 (Control Flow Analysis)</h3>
-                <p>코드를 실행하지 않고(정적 분석), 제어 흐름 그래프(CFG)를 그려 구조적 결함을 찾습니다.</p>
-                <ul>
-                    <li><strong>도달할 수 없는 코드(Dead Code):</strong> 어떤 입력값으로도 실행될 수 없는 코드. (예: <code>return</code>문 뒤의 코드)</li>
-                    <li><strong>순환 복잡도 (McCabe's Cyclomatic Complexity):</strong> 코드 내 독립적인 실행 경로의 개수. 복잡도가 높으면 유지보수성이 떨어집니다.</li>
-                    <li style="color: var(--accent); font-weight: bold;">수식: V(G) = E - N + 2 (E: 간선, N: 노드)</li>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">3.1 정적 제어 흐름 분석 (Static Control Flow Analysis)</h3>
+                <p style="margin-bottom: 1rem;">코드를 컴파일하거나 실행하지 않은 상태에서 소스 코드의 제어 흐름 그래프(CFG)를 그리고 구조적인 결함을 찾아내는 기법입니다. 컴파일러나 정적 분석 도구(SonarQube 등)를 주로 사용합니다.</p>
+                <ul style="margin-left: 1.5rem; line-height: 1.6; margin-bottom: 1rem;">
+                    <li><strong>데드 코드 (Dead Code):</strong> 로직상 어떠한 입력값을 주어도 절대 도달할 수 없어 실행되지 않는 코드. (예: IF(항상 False) 구문 내부, 무조건 Return 된 이후의 라인)</li>
+                    <li><strong>무한 루프 (Infinite Loop):</strong> 종료 조건이 누락되었거나 루프 내부에서 루프 탈출 조건으로 수렴하지 않아 영원히 빠져나올 수 없는 순환 구조.</li>
+                    <li><strong>순환 복잡도 (McCabe's Cyclomatic Complexity):</strong> 프로그램의 독립적인 실행 경로 개수 측정. 복잡도가 높을수록(통상 10 초과) 가독성이 떨어지고 테스트 케이스 도출이 기하급수적으로 어려워집니다.</li>
                 </ul>
+                <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--accent); padding: 1rem; margin-top: 1rem;">
+                    <strong>[순환 복잡도 계산 공식] V(G) = E - N + 2</strong><br>
+                    (E: Edges 간선의 수, N: Nodes 노드의 수)<br>
+                    시험에서 흐름도 그림이 주어지면, 화살표(간선)의 개수와 동그라미(노드)의 개수를 세어 위 공식에 대입하면 정답이 나옵니다.
+                </div>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">3.2 데이터 흐름 분석 (Data Flow Analysis)</h3>
-                <p>변수의 상태(D: Define, U: Use, K: Kill) 전이를 정적으로 분석하여 비정상적인 흐름을 찾습니다.</p>
-                <table style="width: 100%; border-collapse: collapse; text-align: left;">
-                    <tr style="border-bottom: 1px solid var(--glass-border);"><th>이상 징후</th><th>설명</th><th>위험성</th></tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);"><td><strong>UR</strong> (Use before Define)</td><td>값을 정의(초기화)하기 전에 변수 사용</td><td>치명적 오류 (쓰레기 값, Null Pointer)</td></tr>
-                    <tr style="border-bottom: 1px solid var(--glass-border);"><td><strong>DD</strong> (Define-Define)</td><td>변수 할당 후 한 번도 읽지 않고 다시 할당</td><td>코드 낭비, 로직 오류 가능성</td></tr>
-                    <tr><td><strong>DU</strong> (Define-Undefine)</td><td>변수를 정의해 놓고 전혀 사용하지 않고 소멸</td><td>데드 변수, 불필요한 메모리 점유</td></tr>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">3.2 정적 데이터 흐름 분석 (Static Data Flow Analysis)</h3>
+                <p style="margin-bottom: 1rem;">변수의 상태 전이를 추적하여 메모리 낭비나 시스템 충돌의 원인을 찾는 정적 분석입니다. 변수의 라이프사이클은 <strong>D(Define:정의), U(Use:사용), K(Kill:해제/소멸)</strong> 로 나뉩니다.</p>
+                <table style="width: 100%; border-collapse: collapse; text-align: left; background: rgba(0,0,0,0.2);">
+                    <tr style="border-bottom: 1px solid var(--glass-border); background: rgba(255,255,255,0.05);">
+                        <th style="padding: 0.75rem;">이상 징후 패턴</th>
+                        <th style="padding: 0.75rem;">상세 설명 및 위험성</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--glass-border);">
+                        <td style="padding: 0.75rem; color: var(--danger); font-weight: bold;">UR (Use before Define)</td>
+                        <td style="padding: 0.75rem;">변수에 어떠한 값을 <strong>정의(초기화)하기도 전에 사용(읽기)</strong>하려는 매우 심각한 오류. 쓰레기값(Garbage) 참조나 시스템 충돌(Null Pointer Exception)을 유발합니다.</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--glass-border);">
+                        <td style="padding: 0.75rem; color: var(--warning); font-weight: bold;">DD (Define - Define)</td>
+                        <td style="padding: 0.75rem;">값을 할당(D)한 뒤, 한 번도 읽지(U) 않고 곧바로 또 다른 값을 덮어씌워 할당(D)하는 현상. 비효율적이며 로직의 누락을 강하게 의심해야 합니다.</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem; color: var(--text-secondary); font-weight: bold;">DU (Define - Undefine)</td>
+                        <td style="padding: 0.75rem;">변수를 선언하고 값까지 할당해 두었으나, 단 한 번도 사용하지 않은 채 스코프가 종료되어 변수가 해제(K/U)되는 현상. 리소스 낭비입니다.</td>
+                    </tr>
                 </table>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px;">
                 <h3 style="color: var(--accent); margin-bottom: 1rem;">3.3 동적 분석 (Dynamic Analysis)</h3>
-                <p>실제 애플리케이션을 <strong>'실행(Execute)'</strong>하면서 메모리 및 스레드 상태를 모니터링합니다. (주로 C/C++ 사용 시)</p>
-                <ul>
-                    <li><strong>메모리 누수(Memory Leak):</strong> 할당된 메모리를 해제하지 않아 시간이 지날수록 가용 메모리가 고갈됨. (내구성 테스트와 연계)</li>
-                    <li><strong>댕글링 포인터(Dangling Pointer):</strong> 이미 해제(free)된 메모리를 가리키고 있는 포인터 사용. (크래시 유발)</li>
-                    <li><strong>데드락(Deadlock) / 데이터 레이스:</strong> 멀티 스레드 환경에서의 동기화 실패.</li>
+                <p style="margin-bottom: 1rem;">소프트웨어를 컴파일하여 <strong>'실제로 실행(Runtime)'</strong>시키면서, 보이지 않는 백그라운드(메모리 자원, 스레드 동기화 상태)를 모니터링하는 분석 기법입니다. 주로 C/C++ 같은 메모리 수동 관리 언어에서 필수적입니다.</p>
+                <ul style="margin-left: 1.5rem; line-height: 1.6; margin-bottom: 1rem;">
+                    <li><strong>메모리 누수 (Memory Leak):</strong> malloc/new로 할당받은 메모리를 사용 후 반환(free/delete)하지 않아, 시간이 지날수록 OS의 가용 메모리가 서서히 줄어들다가 결국 OOM(Out of Memory)으로 시스템이 죽어버리는 현상. 동적 분석의 '내구성 테스트(Soak Test)'와 밀접하게 연관됩니다.</li>
+                    <li><strong>댕글링 포인터 (Dangling Pointer):</strong> 이미 메모리 영역이 해제(Free)되어 반환되었음에도 불구하고, 포인터 변수가 여전히 해당 주소를 가리킨 채 값을 읽거나 쓰려고 시도하는 현상. (심각한 보안 취약점 및 크래시 유발)</li>
+                    <li><strong>데드락 (Deadlock) 및 데이터 레이스:</strong> 멀티 스레드 프로그래밍에서 두 스레드가 서로가 쥐고 있는 자원의 Lock을 무한정 대기하는 교착 상태(데드락)나, 동시에 자원에 접근하여 값이 꼬이는 경합(Race Condition).</li>
                 </ul>
             </div>
         `
@@ -110,49 +174,64 @@ const syllabusTopics = [
         content: `
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
                 <h3 style="color: var(--accent); margin-bottom: 1rem;">4.1 보안성 (Security)</h3>
-                <ul>
-                    <li><strong>SQL 인젝션:</strong> 악의적 쿼리 삽입. (예방: Prepared Statements 사용)</li>
-                    <li><strong>XSS (크로스 사이트 스크립팅):</strong> 타인의 브라우저에서 스크립트 실행. (예방: 입출력 무결성 필터링)</li>
-                    <li><strong>버퍼 오버플로우:</strong> 메모리 한계를 초과하여 입력하여 인접 영역 침범.</li>
-                    <li><strong>모의 해킹(Penetration Test):</strong> 실제 해커처럼 공격을 시도해 취약점을 찾는 동적 테스팅.</li>
+                <p style="margin-bottom: 1rem;">데이터와 시스템을 보호하고 무결성과 기밀성을 유지하는 능력입니다. TTA는 정적 코드 분석과 모의 해킹(Penetration Test)을 통해 취약점을 식별합니다.</p>
+                <ul style="margin-left: 1.5rem; line-height: 1.6; margin-bottom: 1rem;">
+                    <li><strong>SQL 인젝션 (SQL Injection):</strong> 사용자 입력 필드에 악의적인 SQL 명령을 삽입하여 데이터베이스를 파괴하거나 민감한 정보를 탈취하는 가장 고전적이면서도 치명적인 공격. (대응책: 매개변수화된 쿼리/Prepared Statement 사용)</li>
+                    <li><strong>XSS (Cross-Site Scripting):</strong> 웹사이트 게시판 등에 악성 자바스크립트를 작성하여, 이를 열람하는 다른 사용자의 브라우저에서 스크립트가 강제 실행되도록 하여 쿠키(세션)를 탈취하는 공격.</li>
+                    <li><strong>모의 해킹 (Pen-test):</strong> 시스템 구성 정보와 소스 코드를 모두 열람하고 공격하는 화이트박스 방식과, 외부 해커와 동일한 관점에서 공격하는 블랙박스 방식이 있습니다.</li>
                 </ul>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
                 <h3 style="color: var(--accent); margin-bottom: 1rem;">4.2 성능 효율성 (Performance Efficiency)</h3>
-                <ul>
-                    <li><strong>부하 테스트 (Load Testing):</strong> '정상적인 최대 부하' 하에서 응답시간과 자원 활용도 요구사항 준수 여부 확인.</li>
-                    <li><strong>스트레스 테스트 (Stress Testing):</strong> 설계 한계를 넘는 과부하를 인가하여 '파괴 시점(Breaking point)'과 '복구성(Recoverability)' 관찰.</li>
-                    <li><strong>내구성 테스트 (Endurance/Soak Testing):</strong> 일상적인 부하를 수일간 인가하여 메모리 누수(Memory Leak) 등을 장기적으로 관찰.</li>
-                    <li><strong>스파이크 테스트 (Spike Testing):</strong> 수 초 만에 트래픽이 폭발적으로 증가할 때의 대응(스케일 아웃 등) 평가.</li>
+                <p style="margin-bottom: 1rem;">성능 테스트는 단순히 '속도'만을 재는 것이 아닙니다. 주어진 자원 내에서 처리량(Throughput)과 응답 시간(Response Time)의 한계를 찾는 활동입니다.</p>
+                <ul style="margin-left: 1.5rem; line-height: 1.6; margin-bottom: 1rem;">
+                    <li><strong>부하 테스트 (Load Testing):</strong> 아키텍처 명세서에 정의된 '정상적인 최대(Peak) 동시 접속자 수'를 인가했을 때, 시스템이 성능 목표(예: 3초 이내 응답)를 지속적으로 유지하는지 검증합니다.</li>
+                    <li><strong>스트레스 테스트 (Stress Testing):</strong> 설계 한계를 훌쩍 넘는 초과 부하를 지속적으로 주어 시스템 자원(CPU 100%, 커넥션 고갈)을 바닥냅니다. 시스템이 <strong>언제 파괴되는지(Breaking Point)</strong>, 파괴될 때 주변 시스템에 연쇄 장애를 일으키지 않고 우아하게 실패하는지(Graceful Degradation) 관찰합니다.</li>
+                    <li><strong>내구성 테스트 (Soak/Endurance Testing):</strong> 일반적인 수준의 부하를 며칠, 몇 주에 걸쳐 '장기간' 지속합니다. 가동 직후에는 알 수 없는 장기 메모리 누수나 데이터베이스 찌꺼기 축적 문제를 찾아내는 데 매우 탁월합니다.</li>
+                    <li><strong>스파이크 테스트 (Spike Testing):</strong> 홈쇼핑 마감 임박 순간이나 수강신청 오픈 시간처럼 '수 초 이내에 폭발적인 트래픽'이 밀려들 때 시스템(특히 클라우드의 오토 스케일링)이 버티거나 올바르게 차단/대기열을 형성하는지 평가합니다.</li>
                 </ul>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">4.3 유지보수성 및 신뢰성</h3>
-                <p><strong>유지보수성 (Maintainability):</strong> 응집도(Cohesion)를 높이고 결합도(Coupling)를 낮추어야 모듈성, 분석성, 수정성이 높아집니다. 순환 복잡도(v)가 10을 넘지 않도록 관리합니다.</p>
-                <p><strong>신뢰성 (Reliability):</strong> 시스템 장애에도 불구하고 버티는 능력인 <strong>결함 허용성(Fault Tolerance)</strong>과, 장애 후 백업을 통해 복원하는 <strong>복구성(Recoverability)</strong>이 핵심입니다.</p>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">4.3 신뢰성, 유지보수성 및 이식성</h3>
+                <ul style="margin-left: 1.5rem; line-height: 1.6; margin-bottom: 1rem;">
+                    <li><strong>신뢰성 (Reliability):</strong> 시스템 장애에 직면했을 때의 대처 능력을 뜻합니다. 하드디스크가 고장나도 RAID 구성을 통해 무정지 서비스를 유지하는 <strong>결함 허용성(Fault Tolerance)</strong>, 그리고 시스템 전체가 죽었을 때 백업을 통해 정해진 시간 내에 서비스를 살려내는 <strong>복구성(Recoverability)</strong>이 포함됩니다.</li>
+                    <li><strong>유지보수성 (Maintainability):</strong> 시스템 로직을 얼마나 쉽게 분석하고 변경할 수 있는지 평가합니다. 좋은 유지보수성은 <strong>높은 응집도(Cohesion)와 낮은 결합도(Coupling)</strong>에서 비롯됩니다. 이를 검증하기 위해 자동화된 회귀 테스트(Regression Test) 구축 여부가 중요합니다.</li>
+                    <li><strong>이식성 (Portability):</strong> A 환경(예: 윈도우, 온프레미스 서버)에서 동작하던 소프트웨어를 B 환경(예: 리눅스, AWS 클라우드)으로 얼마나 쉽고 완벽하게 옮겨 설치(Installability)하고 적응(Adaptability)시킬 수 있는지에 대한 지표입니다.</li>
+                </ul>
             </div>
         `
     },
     {
         id: "ch5",
         title: "5. 테스트 도구 및 자동화",
-        desc: "TTA가 활용하는 테스트 도구의 특징과 도입 전략.",
+        desc: "TTA가 활용하는 전문화된 자동화 도구들의 구조와 도입 전략.",
         icon: "fa-wrench",
         content: `
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">5.1 모델 기반 테스팅 도구 (MBT Tools)</h3>
-                <p>시스템을 상태 전이 다이어그램 등의 추상화된 <strong>'모델(Model)'</strong>로 정의하면, 도구가 수학적 알고리즘을 통해 실행 가능한 경로를 계산하여 <strong>테스트 케이스와 스크립트를 자동 생성</strong>해주는 도구입니다.</p>
-                <p>요구사항 변경 시 '모델'만 업데이트하면 관련된 모든 테스트 케이스가 즉각 재생성되므로 유지보수성이 극대화됩니다.</p>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">5.1 모델 기반 테스팅 도구 (MBT, Model-Based Testing)</h3>
+                <p style="margin-bottom: 1rem;">시스템의 요구사항과 비즈니스 로직을 인간이 읽는 산문 텍스트가 아니라, '상태 전이 다이어그램'이나 'UML 활동 다이어그램' 등 도구가 해석할 수 있는 수학적, 추상적 <strong>'모델(Model)'</strong>로 정의합니다.</p>
+                <p style="margin-bottom: 1rem;">도구는 이 모델을 읽어 들여 수많은 경로 탐색 알고리즘을 수행한 뒤, 인간이 미처 생각하지 못한 엣지 케이스까지 포함하여 <strong>자동으로 엄청난 양의 테스트 케이스와 자동화 스크립트를 생성(Generation)</strong>합니다.</p>
+                <p style="margin-bottom: 1rem;"><strong>가장 큰 장점:</strong> 비즈니스 요구사항이나 시스템 사양이 변경되었을 때, 수백 개의 테스트 스크립트를 수작업으로 수정할 필요 없이 <strong>단지 '모델만 수정(Update Model)'하면 도구가 새로운 테스트 세트를 즉각 다시 만들어내므로 유지보수 비용이 극적으로 절감</strong>됩니다.</p>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">5.2 결함 주입 도구 (Fault Seeding / Injection)</h3>
-                <p>정상 동작 중인 시스템에 네트워크 차단, 디스크 풀, 서버 강제 종료, 변수 값 런타임 조작 등의 <strong>'결함'을 인위적으로 주입</strong>합니다.</p>
-                <p>목적: 이 극한의 장애 상황에서 소프트웨어의 <strong>결함 허용성(Fault Tolerance)</strong> 및 복구성 메커니즘이 의도대로 동작하는지 검증하기 위함입니다.</p>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">5.2 결함 주입 도구 (Fault Seeding / Fault Injection)</h3>
+                <p style="margin-bottom: 1rem;">성능이 떨어지거나 시스템이 불안정할 때를 기다리는 것이 아니라, 멀쩡하게 정상 동작 중인 소프트웨어나 인프라 환경에 <strong>인위적으로 고의적인 결함을 주입(Inject)</strong>하는 카오스 엔지니어링(Chaos Engineering) 성격의 도구입니다.</p>
+                <ul style="margin-left: 1.5rem; line-height: 1.6; margin-bottom: 1rem;">
+                    <li><strong>소프트웨어 레벨:</strong> 런타임에 메모리 변수 값을 강제로 덮어쓰거나, 무한 루프 코드를 심어 의도적인 오류 예외 처리 로직이 동작하는지 확인합니다.</li>
+                    <li><strong>하드웨어/인프라 레벨:</strong> 네트워크 케이블 연결을 강제로 끊거나, 스토리지 용량을 가득 채우거나, 동작 중인 클라우드 가상 머신(VM) 전원을 무작위로 내려버립니다.</li>
+                </ul>
+                <div style="background: rgba(59, 130, 246, 0.1); border-left: 4px solid var(--accent); padding: 1rem; margin-top: 1rem;">
+                    <strong>💡 [핵심 출제 포인트]</strong> 결함 주입 도구를 사용하는 근본적인 목적은 앞서 배운 품질 특성 중 시스템의 <strong>결함 허용성(Fault Tolerance)과 복구성(Recoverability)</strong>이 실제 재난 상황에서 아키텍처 설계대로 동작하는지 생생하게 검증하기 위함입니다.
+                </div>
             </div>
+
             <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px;">
-                <h3 style="color: var(--accent); margin-bottom: 1rem;">5.3 컴포넌트 단위 테스팅 도구</h3>
-                <p>xUnit 프레임워크 기반으로 소스 코드를 단위 테스트할 때, 테스트 대상 코드가 아직 구현되지 않은 모듈이나 느린 외부 API에 의존할 경우 <strong>Mock 객체 및 스텁(Stub)</strong>을 자동 생성하여 테스트를 '격리(Isolate)' 시켜줍니다.</p>
-                <p>CI(Continuous Integration) 파이프라인에 정적 분석 도구와 함께 연동하여 코드가 커밋될 때마다 커버리지를 자동으로 측정합니다.</p>
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">5.3 정적 분석 및 성능 측정 자동화 도구</h3>
+                <p style="margin-bottom: 1rem;"><strong>정적 분석 도구 연동:</strong> 개발자가 작성한 소스 코드가 CI(Continuous Integration) 파이프라인에 커밋/병합(Merge)되기 직전에, SonarQube와 같은 도구가 순환 복잡도 및 코딩 컨벤션을 스캔하여 임계치를 초과하면 빌드를 강제로 실패(Fail)시킵니다. <strong>오탐(False Positive) 관리</strong>가 TTA의 가장 중요한 유지보수 임무입니다.</p>
+                <p style="margin-bottom: 1rem;"><strong>성능 도구의 아키텍처:</strong> 성능 테스트 도구(LoadRunner, JMeter 등)는 한 대의 PC에서 수천 명의 브라우저 렌더링을 감당할 수 없으므로, 프로토콜 계층(HTTP 패킷 등)에서만 동작하는 매우 가벼운 <strong>가상 사용자(Virtual User, VUser) 스레드</strong>를 대량으로 생성하여 서버를 타격합니다. 도구를 실행하는 컨트롤러 PC의 CPU나 네트워크가 병목에 걸리면 부하를 제대로 줄 수 없으므로 부하 발생기(Load Generator)를 여러 대로 늘려(분산 부하) 구성해야 합니다.</p>
             </div>
         `
     }
